@@ -90,6 +90,7 @@
 - chakra UI의 toast -> react-toastify로 변경 또는 직접 만들어보기
 - Todo를 작성중이거나 수정중일때 페이지를 이탈하려하는 행위를 할때 확인창 띄우기
 - React-query의 낙관적 업데이트 실패시 오류 수정하기. (실패했을때 기존 내용이 사라지는 현상)
+- todo를 작성중이거나 수정중일때 페이지를 이탈하려는 액션을 취할경우 사용자에게 확인 받도록 수정
 
 # 😋 프로젝트 진행 후기
 
@@ -116,6 +117,7 @@ yarn start  // localhost:8080
 
 # 기술스택 & 라이브러리
 
+<p>
 <img src="https://img.shields.io/badge/React-^18.2.0-61DAFB?style=flat&logo=React&logoColor=white"/> 
 <img src="https://img.shields.io/badge/typescript-^4.9.5-3178c6?style=flat&logo=typescript&logoColor=white"/>
 <img src="https://img.shields.io/badge/Javscript-F7DF1E?style=flat&logo=Javascript&logoColor=white"/>
@@ -126,6 +128,7 @@ yarn start  // localhost:8080
 <br>
 <br>
 <img src="https://user-images.githubusercontent.com/66175249/216847693-1784fe35-2c98-486e-a55b-ad35ff0c4cb1.png"/>
+</p>
 
 # 파일구조
 
