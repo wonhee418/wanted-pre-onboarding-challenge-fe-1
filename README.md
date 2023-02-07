@@ -64,7 +64,7 @@
 
 <video src="https://user-images.githubusercontent.com/66175249/217008043-ed759575-fc8d-4193-a2e9-b5a406ccdd93.mp4"></video>
 
-- 회원가입과 로그인폼은 react-hook-from을 사용하여 구현했습니다. // 왜?
+- 회원가입과 로그인폼은 react-hook-from을 사용하여 구현했습니다.
 - 이메일형식이 맞는지, 비밀번호는 6 ~ 18자가 맞는지 유효성 검사를 진했하였고, 이미 존재하는 회원일경우, 등록되지 않은 계정으로 로그인을 시도 하는경우등 상황에 따라 서버에서 응답으로 돌려주는 error 내용을 toast로 띄어주어 사용자에게 알릴 수 있도록 구현했습니다.
 
 # 📃 Todo 페이지 ( Todo CRUD)
