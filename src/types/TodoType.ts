@@ -14,13 +14,8 @@ export type TodoProps = {
   onEditMode: () => void;
 };
 
-export type TodoRequestObj = {
+export type TodoRequest = {
   id?: string;
   title: string;
   content: string;
-};
-
-export type TodoQueryKey = {
-  QueryKey: [string, string];
-  1: Todo;
 };

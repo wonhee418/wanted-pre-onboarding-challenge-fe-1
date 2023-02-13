@@ -4,14 +4,13 @@ import { useQuery } from "react-query";
 import { useLocation } from "react-router";
 import { getTodoById } from "../../api/todo";
 import { queryKey } from "../../react-query/constants";
-import { TodoRequestObj } from "../../types/TodoType";
+import { TodoRequest } from "../../types/TodoType";
 import { useDeleteTodo } from "./hooks/useDeleteTodo";
 import { useUpdateTodo } from "./hooks/useUpdateTodo";
 
 const TodoDetail = (props: {
   editState: boolean;
   onEditMode: (data: boolean) => void;
-  // state의 setter 함수의 return값은 저건가보다
 }): React.ReactElement => {
   const { editState, onEditMode } = props;
   const { state } = useLocation();
@@ -56,7 +55,7 @@ const TodoDetail = (props: {
     }
   };
 
-  const updateTodoHandler = (data: TodoRequestObj) => {
+  const updateTodoHandler = (data: TodoRequest) => {
     updateTodoMutate(data);
     onEditMode(false);
   };

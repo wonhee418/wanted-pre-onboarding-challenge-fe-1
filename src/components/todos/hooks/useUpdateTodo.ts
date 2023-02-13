@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "react-query";
 import { useLocation } from "react-router";
 import { updataTodo } from "../../../api/todo";
 import { queryKey } from "../../../react-query/constants";
-import { Todo, TodoRequestObj } from "../../../types/TodoType";
+import { Todo, TodoRequest } from "../../../types/TodoType";
 import useCustomToast from "../../../common/hooks/useCustomToast";
 
 export const useUpdateTodo = () => {
@@ -11,9 +11,9 @@ export const useUpdateTodo = () => {
   const { state: id } = useLocation();
 
   const { mutate: updateTodoMutate } = useMutation(
-    (data: TodoRequestObj) => updataTodo(data),
+    (data: TodoRequest) => updataTodo(data),
     {
-      onMutate: async (newTodo) => {
+      onMutate: async (newTodo: TodoRequest) => {
         queryClient.cancelQueries([queryKey.todo, id]);
 
         const prevTodoData = queryClient.getQueryData<Todo>([

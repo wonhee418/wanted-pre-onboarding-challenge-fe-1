@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "react-query";
 import { createTodo } from "../../../api/todo";
 import { queryKey } from "../../../react-query/constants";
-import { TodoRequestObj } from "../../../types/TodoType";
+import { TodoRequest } from "../../../types/TodoType";
 import useCustomToast from "../../../common/hooks/useCustomToast";
 
 export const usePostTodo = () => {
@@ -9,7 +9,7 @@ export const usePostTodo = () => {
   const queryClient = useQueryClient();
 
   const { mutate: createTodoMutate } = useMutation(
-    (data: TodoRequestObj) => createTodo(data),
+    (data: TodoRequest) => createTodo(data),
     {
       onSuccess: () => {
         queryClient.invalidateQueries(queryKey.todos);

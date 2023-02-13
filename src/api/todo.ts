@@ -1,5 +1,5 @@
 import { getStorageUser } from "../common/user/userStorage";
-import { TodoRequestObj } from "../types/TodoType";
+import { TodoRequest } from "../types/TodoType";
 import { API } from "./api";
 
 export const getTodos = async () => {
@@ -24,7 +24,7 @@ export const getTodoById = async (id: string) => {
   });
   return response.data.data;
 };
-export const createTodo = async ({ title, content }: TodoRequestObj) => {
+export const createTodo = async ({ title, content }: TodoRequest) => {
   const token = getStorageUser();
   return await API.post(
     `/todos`,
@@ -37,7 +37,7 @@ export const createTodo = async ({ title, content }: TodoRequestObj) => {
   );
 };
 
-export const updataTodo = async (data: TodoRequestObj) => {
+export const updataTodo = async (data: TodoRequest) => {
   const token = getStorageUser();
   const { id, title, content } = data;
   return await API.put(
