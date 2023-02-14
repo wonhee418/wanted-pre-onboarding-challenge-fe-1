@@ -1,4 +1,4 @@
-import { AxiosError, AxiosResponse } from "axios";
+import { AxiosError } from "axios";
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router";
 import { useSetRecoilState } from "recoil";
@@ -19,7 +19,7 @@ export const useAuth = () => {
   const { mutate: signInMutate } = useMutation(
     (data: Auth) => signInRequest(data),
     {
-      onSuccess: (received: AxiosResponse<any, any>) => {
+      onSuccess: (received) => {
         const { data } = received;
         const title = "message" in data && data.message;
         toast({
