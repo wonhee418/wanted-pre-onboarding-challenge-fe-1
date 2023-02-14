@@ -1,4 +1,3 @@
-import { AxiosError } from "axios";
 import { TodoRequest } from "../types/TodoType";
 import { API } from "./api";
 
@@ -16,13 +15,7 @@ export const createTodo = async ({ title, content }: TodoRequest) => {
 
 export const updataTodo = async (data: TodoRequest) => {
   const { id, title, content } = data;
-  await API.put(`/todos/${id}`, { title, content })
-    .then((res) => {
-      return res.data;
-    })
-    .catch((error: AxiosError) => {
-      return error.response;
-    });
+  await API.put(`/todos/${id}`, { title, content });
 };
 
 export const deleteTodo = async (id: string) => {
