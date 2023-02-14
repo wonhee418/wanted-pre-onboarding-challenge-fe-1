@@ -1,61 +1,30 @@
-import { getStorageUser } from "../common/user/userStorage";
+import { AxiosError } from "axios";
 import { TodoRequest } from "../types/TodoType";
 import { API } from "./api";
 
 export const getTodos = async () => {
-  const token = getStorageUser();
-  if (token) {
-    const response = await API.get(`/todos`, {
-      headers: {
-        Authorization: token,
-      },
-    });
-    return response.data.data;
-  } else {
-    return;
-  }
+  const response = await API.get(`/todos`);
+  return response.data.data;
 };
 export const getTodoById = async (id: string) => {
-  const token = getStorageUser();
-  const response = await API.get(`/todos/${id}`, {
-    headers: {
-      Authorization: token,
-    },
-  });
+  const response = await API.get(`/todos/${id}`);
   return response.data.data;
 };
 export const createTodo = async ({ title, content }: TodoRequest) => {
-  const token = getStorageUser();
-  return await API.post(
-    `/todos`,
-    { title, content },
-    {
-      headers: {
-        Authorization: token,
-      },
-    }
-  );
+  return await API.post(`/todos`, { title, content });
 };
 
 export const updataTodo = async (data: TodoRequest) => {
-  const token = getStorageUser();
   const { id, title, content } = data;
-  return await API.put(
-    `/todos/${id}`,
-    { title, content },
-    {
-      headers: {
-        Authorization: token,
-      },
-    }
-  );
+  await API.put(`/todos/${id}`, { title, content })
+    .then((res) => {
+      return res.data;
+    })
+    .catch((error: AxiosError) => {
+      return error.response;
+    });
 };
 
 export const deleteTodo = async (id: string) => {
-  const token = getStorageUser();
-  return await API.delete(`/todos/${id}`, {
-    headers: {
-      Authorization: token,
-    },
-  });
+  return await API.delete(`/todos/${id}`);
 };

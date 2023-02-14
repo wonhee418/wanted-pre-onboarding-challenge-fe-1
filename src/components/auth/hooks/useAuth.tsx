@@ -1,4 +1,4 @@
-import axios, { Axios, AxiosError } from "axios";
+import { AxiosError, AxiosResponse } from "axios";
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router";
 import { useSetRecoilState } from "recoil";
@@ -19,7 +19,7 @@ export const useAuth = () => {
   const { mutate: signInMutate } = useMutation(
     (data: Auth) => signInRequest(data),
     {
-      onSuccess: (received) => {
+      onSuccess: (received: AxiosResponse<any, any>) => {
         const { data } = received;
         const title = "message" in data && data.message;
         toast({
@@ -33,7 +33,6 @@ export const useAuth = () => {
         }
       },
       onError: (error: AxiosError) => {
-        // const title = "details" in data && data.details;
         toast({
           title: error.message,
           status: "error",
@@ -55,8 +54,6 @@ export const useAuth = () => {
         navigate("/auth");
       },
       onError: (error: AxiosError) => {
-        // const title =
-        // "details" in error.response.data && error.response.data.details;
         toast({
           title: error.message,
           status: "error",
