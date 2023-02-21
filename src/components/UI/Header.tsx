@@ -21,6 +21,7 @@ const Header = () => {
     navigate("/");
   };
 
+
   return (
     <header className="sticky top-0 flex flex-row justify-center px-4 py-5 bg-slate-200 z-10 text-gray-700">
       <div className="flex justify-between max-w-screen-lg w-full">
