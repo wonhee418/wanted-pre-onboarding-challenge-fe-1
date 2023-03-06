@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import useCustomToast from "../../common/hooks/useCustomToast";
+import { toast } from "react-toastify";
 import Input from "../UI/Input";
 import { usePostTodo } from "./hooks/usePostTodo";
 
@@ -7,25 +7,17 @@ const TodoForm = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const createTodoMutate = usePostTodo();
-  const toast = useCustomToast();
 
+  const warningNotify = (value: string) => toast.warning(value);
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (title.trim().length === 0 || title.trim() === "") {
-      toast({
-        title: "빈 내용은 작성할 수 없습니다.",
-        description: "할 일을 작성해주세요.",
-        status: "warning",
-      });
+      warningNotify("빈 내용은 작성할 수 없습니다.");
       return;
     }
     if (content.trim().length === 0 || content.trim() === "") {
-      toast({
-        title: "빈 내용은 작성할 수 없습니다.",
-        description: "상세 내용을 작성해주세요.",
-        status: "warning",
-      });
+      warningNotify("빈 내용은 작성할 수 없습니다.");
       return;
     }
     createTodoMutate({ title, content });
@@ -67,7 +59,8 @@ const TodoForm = () => {
         />
         <button
           className="border w-full bg-slate-400 text-white rounded p-1.5 hover:bg-slate-500 transition-all"
-          type="submit">
+          type="submit"
+        >
           작성하기
         </button>
       </form>

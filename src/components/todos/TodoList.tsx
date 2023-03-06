@@ -9,13 +9,14 @@ import { hasTokenState } from "../../atom/atom";
 import { useGetTodo } from "./hooks/useGetTodo";
 import TodoForm from "./TodoForm";
 import { Todo } from "../../types/TodoType";
+import { toast } from "react-toastify";
 
 const TodoList = () => {
   const [editMode, setEditMode] = useState(false);
   const tokenIsValid = useRecoilValue(hasTokenState);
   const location = useLocation();
   const { todoList, isLoading, isError, error, refetch } = useGetTodo();
-
+  const errorNotify = (value: string) => toast.error(value);
   useEffect(() => {
     refetch();
   }, [tokenIsValid]);
@@ -41,9 +42,7 @@ const TodoList = () => {
           <TodoForm />
           <div className="flex pb-10">
             <div className="w-full ">
-              {isError && (
-                <SectionTitleArea title="Error !" desc={error!.toString()} />
-              )}
+              {isError && errorNotify(error!.toString())}
               {isLoading ? (
                 <div className=" text-center">
                   <Spinner />

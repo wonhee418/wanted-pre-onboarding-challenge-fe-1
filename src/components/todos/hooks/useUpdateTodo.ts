@@ -1,12 +1,13 @@
 import { useMutation, useQueryClient } from "react-query";
 import { useLocation } from "react-router";
+import { toast } from "react-toastify";
 import { updataTodo } from "../../../api/todo";
 import { queryKey } from "../../../react-query/constants";
 import { Todo, TodoRequest } from "../../../types/TodoType";
-import useCustomToast from "../../../common/hooks/useCustomToast";
 
 export const useUpdateTodo = () => {
-  const toast = useCustomToast();
+  const successNotify = (value: string) => toast.success(value);
+  const warningNotify = (value: string) => toast.warning(value);
   const queryClient = useQueryClient();
   const { state: id } = useLocation();
 
@@ -27,19 +28,11 @@ export const useUpdateTodo = () => {
       onError: (error, newTodo, context) => {
         if (context!.prevTodoData) {
           queryClient.setQueryData([queryKey.todo, id], context!.prevTodoData);
-          toast({
-            title: "수정하는데 실패하였습니다.",
-            status: "warning",
-          });
+          warningNotify("수정하는데 실패하였습니다.");
         }
       },
       onSuccess: () => {
-        toast.closeAll();
-        toast({
-          title: "Todo 수정 성공 !",
-          description: "선택한 Todo를 수정하였습니다 !",
-          status: "success",
-        });
+        successNotify("Todo 수정 성공 !");
       },
       onSettled: () => {
         queryClient.invalidateQueries([queryKey.todo, id]);

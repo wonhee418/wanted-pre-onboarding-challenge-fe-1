@@ -1,10 +1,10 @@
-import { AxiosError } from "axios";
+import { AxiosError, isAxiosError } from "axios";
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router";
 import { useSetRecoilState } from "recoil";
+import { toast } from "react-toastify";
 import { signInRequest, signUpRequest } from "../../../api/auth";
 import { hasTokenState } from "../../../atom/atom";
-import useCustomToast from "../../../common/hooks/useCustomToast";
 import {
   clearStorageUser,
   setStorageUser,
@@ -12,7 +12,10 @@ import {
 import { Auth } from "../../../types/AuthType";
 
 export const useAuth = () => {
-  const toast = useCustomToast();
+  const successNotify = (value: string) =>
+    toast.success(value, { autoClose: 2000 });
+  const errorNotify = (value: string) => toast.error(value);
+  const infoNotify = (value: string) => toast.info(value);
   const navigate = useNavigate();
   const setHasToken = useSetRecoilState(hasTokenState);
 
@@ -22,21 +25,18 @@ export const useAuth = () => {
       onSuccess: (received) => {
         const { data } = received;
         const title = "message" in data && data.message;
-        toast({
-          title,
-          status: "success",
-        });
+        successNotify(title);
         if (data.token) {
           setHasToken(data.token);
           setStorageUser(data.token);
           navigate("/");
         }
       },
-      onError: (error: AxiosError) => {
-        toast({
-          title: error.message,
-          status: "error",
-        });
+      onError: (error: unknown) => {
+        if (isAxiosError(error)) {
+          if (error.response?.status === 400)
+            errorNotify(error.response.data.details.toString());
+        }
       },
     }
   );
@@ -47,17 +47,14 @@ export const useAuth = () => {
       onSuccess: (received) => {
         const { data } = received;
         const title = "message" in data && data.message;
-        toast({
-          title,
-          status: "success",
-        });
+        successNotify(title);
         navigate("/auth");
       },
-      onError: (error: AxiosError) => {
-        toast({
-          title: error.message,
-          status: "error",
-        });
+      onError: (error: unknown) => {
+        if (isAxiosError(error)) {
+          if (error.response?.status === 400)
+            errorNotify(error.response.data.details.toString());
+        }
       },
     }
   );
@@ -73,11 +70,7 @@ export const useAuth = () => {
   const signOut = async () => {
     clearStorageUser();
     setHasToken(null);
-    toast({
-      position: "top",
-      title: "로그아웃 하셨습니다.",
-      status: "info",
-    });
+    infoNotify("로그아웃 하셨습니다.");
   };
 
   return {

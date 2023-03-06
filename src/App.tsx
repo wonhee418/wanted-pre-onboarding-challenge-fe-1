@@ -5,6 +5,8 @@ import Header from "./components/UI/Header";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { ChakraProvider } from "@chakra-ui/react";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const queryClient = new QueryClient();
 
@@ -17,6 +19,12 @@ function App() {
           <Layout>
             <Section />
           </Layout>
+          <ToastContainer
+            autoClose={2000}
+            position="top-center"
+            closeOnClick
+            limit={1}
+          />
           {/* <ReactQueryDevtools /> */}
         </QueryClientProvider>
       </RecoilRoot>

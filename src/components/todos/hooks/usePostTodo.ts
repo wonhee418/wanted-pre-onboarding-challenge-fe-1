@@ -2,10 +2,12 @@ import { useMutation, useQueryClient } from "react-query";
 import { createTodo } from "../../../api/todo";
 import { queryKey } from "../../../react-query/constants";
 import { TodoRequest } from "../../../types/TodoType";
-import useCustomToast from "../../../common/hooks/useCustomToast";
+import { toast } from "react-toastify";
+import { isAxiosError } from "axios";
 
 export const usePostTodo = () => {
-  const toast = useCustomToast();
+  const successNotify = (value: string) => toast.success(value);
+  const errorNotify = (value: string) => toast.error(value);
   const queryClient = useQueryClient();
 
   const { mutate: createTodoMutate } = useMutation(
@@ -13,12 +15,13 @@ export const usePostTodo = () => {
     {
       onSuccess: () => {
         queryClient.invalidateQueries(queryKey.todos);
-        toast.closeAll();
-        toast({
-          title: "Todo 생성 !",
-          description: "새로운 TodoList를 추가하였습니다 !",
-          status: "success",
-        });
+        successNotify("Todo 생성 !");
+      },
+      onError: (error: unknown) => {
+        if (isAxiosError(error)) {
+          if (error.response?.status === 400)
+            errorNotify(error.response.data.details.toString());
+        }
       },
     }
   );
