@@ -86,10 +86,9 @@
 
 - 파일구조 한 번 더 생각하고 정리해보기
 - 코드 리팩토링 (컴포넌트 세부화, 반복적인 코드 제거, tailwind config를 활용하기 등)
-- react-query의 error 전역처리 오류 수정하기
+- ~~react-query의 error 전역처리 오류 수정하기~~ ⚒️
 - jest로 테스트 코드 작성해보기
-- chakra UI의 toast -> react-toastify로 변경 또는 직접 만들어보기
-- Todo를 작성중이거나 수정중일때 페이지를 이탈하려하는 행위를 할때 확인창 띄우기
+- ~~chakra UI의 toast -> react-toastify로 변경 또는 직접 만들어보기~~ ⚒️
 - ~~React-query의 낙관적 업데이트 실패시 오류 수정하기. (실패했을때 기존 내용이 사라지는 현상)~~ ⚒️
 - todo를 작성중이거나 수정중일때 페이지를 이탈하려는 액션을 취할경우 사용자에게 확인 받도록 수정
 
